@@ -29,8 +29,8 @@ func main() {
 			fmt.Printf("Iltimos %v kamroq bilet kiriting \n",req)
 			fmt.Println("===============================")
 	}
-	fmt.Println(firstnames)
 }
+getAllUsers(malumotlar)
 }
 
 type People struct {
@@ -55,4 +55,15 @@ func postPlace(arr []map[string]interface{}, people People) []map[string]interfa
 	user["TickedCount"] = people.TickedCount
 	arr = append(arr, user)
 	return arr
+}
+
+func getAllUsers(data []map[string]interface{}){
+	for _,v:=range data{
+		fmt.Println("=============================")
+		fmt.Printf("First name %v\n",v["FirsName"])
+		fmt.Printf("Last name %v\n",v["LastName"])
+		fmt.Printf("Email name %v\n",v["Email"])
+		fmt.Printf("Last name %v\n",v["TickedCount"])
+		fmt.Println("=============================")
+	}
 }
