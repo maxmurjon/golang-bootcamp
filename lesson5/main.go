@@ -7,7 +7,7 @@ func main() {
 	malumotlar :=[]map[string]interface{}{}
 	firstnames:=make([]string,0)
 	req:=0
-	for true{
+	for boshjoy>0{
 		fmt.Printf("Nechta bilet kerak ")
 		fmt.Scanln(&req)
 		if boshJoy(&boshjoy, req){
