@@ -36,6 +36,7 @@ func StructPeople() {
 	Malumotlar = PostPlace(Malumotlar, user1)
 }
 
+
 func PostPlace(arr []map[string]interface{}, people People) []map[string]interface{} {
 	user := make(map[string]interface{})
 	user["FirstName"] = people.FirsName
