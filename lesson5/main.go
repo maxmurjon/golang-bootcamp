@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	
 	for functions.Boshjoy > 0 {
 		fmt.Printf("Nechta bilet kerak ")
 		fmt.Scanln(&functions.Ticket)
