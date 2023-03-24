@@ -5,13 +5,15 @@ import (
     "fmt"
     "net/http"
 )
-
-type Response struct {
-    Data []string `json:"data"`
+type Response []struct {
+	UserID int    `json:"userId"`
+	ID     int    `json:"id"`
+	Title  string `json:"title"`
+	Body   string `json:"body"`
 }
 
 func main() {
-    url := "https://example.com/data.json"
+    url := "https://jsonplaceholder.typicode.com/posts"
 
     resp, err := http.Get(url)
     if err != nil {
@@ -25,5 +27,5 @@ func main() {
         panic(err)
     }
 
-    fmt.Println(response.Data)
+    fmt.Println(response)
 }
