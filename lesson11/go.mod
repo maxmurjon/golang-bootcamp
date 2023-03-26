@@ -1,5 +1,3 @@
-module github.com/Golang-bootcamp/lesson11
+module new-project
 
 go 1.13
-
-require golang.org/x/text v0.8.0

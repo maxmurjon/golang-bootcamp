@@ -1,19 +1,9 @@
-package main
+package methods
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 )
-
-type Methodlari interface {
-	GetBooks() []Kitob
-	AddBook(Kitob) []Kitob
-	RemoveBook(Kitob) []Kitob
-	UpdateBook(Kitob) Kitob
-	GetBookById(Kitob) Kitob
-	// GetBookByCategory(Book)
-}
 
 type Kutubxona struct {
 	Kitoblar []Kitob
@@ -30,11 +20,11 @@ type Kitob struct {
 	Page     int    `json:"page"`
 }
 
-func (data Kutubxona) GetBooks() []Kitob {
+func (data *Kutubxona) GetBooks() []Kitob {
 	return data.Kitoblar
 }
 
-func (data Kutubxona) GetBooksById(id int) Kitob {
+func (data *Kutubxona) GetBooksById(id int) Kitob {
 	var kitob1 Kitob
 	for _, v := range data.Kitoblar {
 		if v.ID == id {
@@ -63,9 +53,9 @@ func (data *Kutubxona) AddBook(kitob Kitob) []Kitob {
 	return data.Kitoblar
 }
 
-func (data *Kutubxona) RemoveBook(kitob Kitob) []Kitob{
+func (data *Kutubxona) RemoveBook(id int) []Kitob {
 	for i, v := range data.Kitoblar {
-		if v.ID == kitob.ID {
+		if v.ID == id {
 			data.Kitoblar = append(data.Kitoblar[:i], data.Kitoblar[i+1:]...)
 			break
 		}
@@ -81,15 +71,15 @@ func (data *Kutubxona) RemoveBook(kitob Kitob) []Kitob{
 func (data Kutubxona) UpdateBook(kitob Kitob) Kitob {
 	for i, _ := range data.Kitoblar {
 		if data.Kitoblar[i].ID == kitob.ID {
-			data.Kitoblar[i].ID=kitob.ID 
-			data.Kitoblar[i].Title=kitob.Title 
-			data.Kitoblar[i].Author=kitob.Author
-			data.Kitoblar[i].Year=kitob.Year 
-			data.Kitoblar[i].Status=kitob.Status  
-			data.Kitoblar[i].Price=kitob.Price
-			data.Kitoblar[i].Period=kitob.Period 
-			data.Kitoblar[i].Category=kitob.Category 
-			data.Kitoblar[i].Page=kitob.Page 
+			data.Kitoblar[i].ID = kitob.ID
+			data.Kitoblar[i].Title = kitob.Title
+			data.Kitoblar[i].Author = kitob.Author
+			data.Kitoblar[i].Year = kitob.Year
+			data.Kitoblar[i].Status = kitob.Status
+			data.Kitoblar[i].Price = kitob.Price
+			data.Kitoblar[i].Period = kitob.Period
+			data.Kitoblar[i].Category = kitob.Category
+			data.Kitoblar[i].Page = kitob.Page
 			kitoblar := data.Kitoblar
 			jsonData, _ := json.Marshal(kitoblar)
 			ioutil.WriteFile("books.json", jsonData, 0644)
@@ -97,42 +87,4 @@ func (data Kutubxona) UpdateBook(kitob Kitob) Kitob {
 		}
 	}
 	return data.Kitoblar[kitob.ID]
-}
-
-
-func main() {
-	var kitoblar []Kitob
-	data, err := ioutil.ReadFile("books.json")
-	if err != nil {
-		panic("Json datani o'qishda hato")
-	}
-	err = json.Unmarshal(data, &kitoblar)
-	if err != nil {
-		panic("Unmarshal qilishda muammo")
-	}
-
-	kutubxona := Kutubxona{kitoblar}
-
-	newBook := Kitob{
-		ID:     1,
-		Title:  "Jaloladdin",
-		Author: "hadfioh",
-		Year:   2004,
-		Status: "given",
-		Price:  890,
-	}
-
-	// fmt.Println(kutubxona.GetBooks())
-	// fmt.Println(kutubxona.RemoveBook(newBook))
-	// fmt.Println(kutubxona.GetBooksById(2))
-	fmt.Println(kutubxona.UpdateBook(newBook))
-
-}
-ok := Kitob{
-	ID:     1,
-	Title:  "Jaloladdin",
-	Author: "hadfioh",
-	Year:   2004,
-	Status: "given",
-	Price:  890,
 }
