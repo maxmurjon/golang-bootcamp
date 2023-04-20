@@ -9,7 +9,9 @@ func main() {
 	// fmt.Println(firstPalindrome(words))
 
 	// fmt.Println(selfDividingNumbers(1, 22))
-	fmt.Println(flipAndInvertImage([][]int{ {0,1,1},{0,0,1},{0,1,0} }))
+	// fmt.Println(flipAndInvertImage([][]int{{0, 1, 1}, {0, 0, 1}, {0, 1, 0}}))
+
+	NumberOfPairs([]string{"red", "red", "red", "red", "red", "red"})
 
 }
 
@@ -72,18 +74,36 @@ func isDividable(i int) bool {
 	return true
 }
 
-func flipAndInvertImage(image [][]int)[][]int{
-	newSlice:=[][]int{}
-	for _,v:=range image{
-		slice1:=[]int{}
-		for i := len(v)-1; i >=0; i-- {
-			if v[i]==0{
+func flipAndInvertImage(image [][]int) [][]int {
+	newSlice := [][]int{}
+	for _, v := range image {
+		slice1 := []int{}
+		for i := len(v) - 1; i >= 0; i-- {
+			if v[i] == 0 {
 				slice1 = append(slice1, 1)
-			}else if v[i]==1{
-				slice1=append(slice1, 0)
+			} else if v[i] == 1 {
+				slice1 = append(slice1, 0)
 			}
 		}
 		newSlice = append(newSlice, slice1)
 	}
 	return newSlice
+}
+
+func NumberOfPairs(gloves []string) {
+	count:=0
+	pairs:=make(map[string]int)
+	for _,v:=range gloves{
+		if pairs[v]!=0{
+			pairs[v]+=1
+		}else{
+			pairs[v]=1
+		}
+	}
+	for _,v:=range pairs{
+		if v>1{
+			count+=v/2
+		}
+	}
+	fmt.Println(count)
 }

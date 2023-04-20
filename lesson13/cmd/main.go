@@ -21,13 +21,30 @@ func main() {
 	// } else {
 	// 	fmt.Println("Siz sahifamizda login qilmagansiz\nXizmatlardan foydalanish uchun login qiling ")
 	// }
+	name := "((([{]})()]]}"
 
-	name := "ai1e1f1h1i1oehaife"
-	bir := 0
-	for i := range name {
-		if name[i] == '1' {
-			bir += 1
+	// count:=0
+	indexs:=make(map[int]bool)
+	map1 := make(map[string]string)
+	map1["("] = ")"
+	map1["{"] = "}"
+	map1["["] = "]"
+	for i := 0; i < len(name)-1; i++ {
+		// if map1[string(name[i])]==string(name[i+1]){
+		// 	fmt.Println(true)
+		// }
+
+		if !indexs[i]{
+			for j := i; j < len(name); j++ {
+				if map1[string(name[i])] == string(name[j]) {	
+					indexs[j]=true
+					break
+				}
+			}
+		}else{
+			continue
 		}
 	}
-	fmt.Println(bir)
+	fmt.Println(len(indexs))
+	fmt.Println(indexs)
 }

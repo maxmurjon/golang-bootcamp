@@ -5,12 +5,17 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/Golang-bootcamp/lesson12/storage/json"
+	methods "github.com/Golang-bootcamp/lesson12/storage/json"
 )
 
 func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Sprintln(r)
+		}
+	}()
 	var kitoblar []methods.Kitob
-	data, err := ioutil.ReadFile("storage/json/books.json")
+	data, err := ioutil.ReadFile("../storage/json/books.json")
 	if err != nil {
 		panic("Json datani o'qishda hato")
 	}
@@ -30,9 +35,9 @@ func main() {
 	// 	Price:  890,
 	// }
 
-	fmt.Println(kutubxona.GetBooks())
+	// fmt.Println(kutubxona.GetBooks())
 	// fmt.Println(kutubxona.RemoveBook(1))
-	// fmt.Println(kutubxona.GetBooksById(2))
-
+	fmt.Println(kutubxona.GetBooksById(2))
+	// fmt.Println(kutubxona.AddBook(newBook))
+	// fmt.Println(kutubxona.UpdateBook(newBook))
 }
-	

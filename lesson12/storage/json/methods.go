@@ -3,11 +3,13 @@ package methods
 import (
 	"encoding/json"
 	"io/ioutil"
+	"fmt"
 )
 
 type Kutubxona struct {
 	Kitoblar []Kitob
 }
+
 type Kitob struct {
 	ID       int    `json:"id"`
 	Title    string `json:"title"`
@@ -44,12 +46,24 @@ func (data *Kutubxona) GetBooksById(id int) Kitob {
 }
 
 func (data *Kutubxona) AddBook(kitob Kitob) []Kitob {
+	defer func ()  {
+		if r:=recover();r!=nil{
+			fmt.Sprintln(r)
+		}	
+	}()
+
 	data.Kitoblar = append(data.Kitoblar, kitob)
 	kitoblar := data.Kitoblar
 
-	jsonData, _ := json.Marshal(kitoblar)
+	jsonData, err := json.Marshal(kitoblar)
+	if err!=nil{
+		panic(err)
+	}
 
-	ioutil.WriteFile("books.json", jsonData, 0644)
+	err=ioutil.WriteFile("storage/json/books.json", jsonData, 0644)
+	if err!=nil{
+		panic(err)
+	}
 	return data.Kitoblar
 }
 
@@ -63,7 +77,7 @@ func (data *Kutubxona) RemoveBook(id int) []Kitob {
 
 	kitoblar := data.Kitoblar
 	jsonData, _ := json.Marshal(kitoblar)
-	ioutil.WriteFile("books.json", jsonData, 0644)
+	ioutil.WriteFile("storage/json/books.json", jsonData, 0644)
 
 	return data.Kitoblar
 }
@@ -82,7 +96,7 @@ func (data Kutubxona) UpdateBook(kitob Kitob) Kitob {
 			data.Kitoblar[i].Page = kitob.Page
 			kitoblar := data.Kitoblar
 			jsonData, _ := json.Marshal(kitoblar)
-			ioutil.WriteFile("books.json", jsonData, 0644)
+			ioutil.WriteFile("storage/json/books.json", jsonData, 0644)
 			return data.Kitoblar[i]
 		}
 	}
